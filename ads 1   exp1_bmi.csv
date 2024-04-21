@@ -1,0 +1,76 @@
+
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sb
+from scipy import stats
+
+
+data = pd.read_csv('/content/exp1_bmi.csv')
+data
+
+
+df = data.drop('Gender', axis = 1)
+df
+
+
+df.mean()
+
+
+df.median()
+
+
+df.mode()
+
+
+df.describe()
+
+
+df.info()
+
+
+print("Describe of Age: ", df['Age'].describe())
+print("\n Standard Deviation of Age: ", df['Age'].std())
+print("\n Variance of Age: ", df['Age'].var())
+print("\n Minimum of Age: ", df['Age'].min())
+print("\n Maximum of Age: ", df['Age'].max())
+
+
+Q1 = df.quantile(0.25)
+Q3 = df.quantile(0.75)
+print("Q1 : \n", Q1)
+print("\n  Q3 : \n", Q3)
+
+
+q1 = df['Age'].quantile(0.25)
+q3 = df['Age'].quantile(0.75)
+IQR = q3 - q1
+print("IQR : ", IQR)
+
+
+sb.boxplot(x = "Age", data=df)
+
+
+sb.boxplot(x="Gender", y = "Age", data=data)
+
+
+std = df["Age"].std()
+mean = df["Age"].mean()
+kurtosis = df["Age"].kurtosis()
+skew = df["Age"].skew()
+DQ = std/mean
+Harmonic_Mean = stats.hmean(df["Age"])
+Risk = Harmonic_Mean/mean
+print("STD : ", std)
+print("mean : ", mean)
+print("Kurtosis : ", kurtosis)
+print("Skew : ", skew)
+print("DQ : ", DQ)
+print("Harmonic Mean : ", Harmonic_Mean)
+print("Risk : ", Risk)
+
+
+zscore = stats.zscore(df['Age'])
+print("Z score: ", zscore)
