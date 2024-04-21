@@ -1,0 +1,67 @@
+
+
+
+import numpy as np
+import pandas as pd
+from sklearn.impute import SimpleImputer
+
+
+df = pd.read_csv("exp2_CountryAgeSalary.csv")
+
+
+df
+
+
+df.isnull().sum()
+
+
+df.describe()
+
+
+
+df.info()
+
+
+x = df.iloc[:, 0:2].values
+y = df.iloc[:, 2].values
+type(x)
+
+
+print(y)
+
+
+print(x)
+
+
+imputer = SimpleImputer(missing_values=np.NaN, strategy = 'median')
+x[:, 1:2] = imputer.fit_transform(x[:,1:2])
+print(x)
+
+
+df["Age"] = imputer.fit_transform(df["Age"].values.reshape(-1,1))[:,0]
+
+
+print(df["Age"])
+
+
+imputer = SimpleImputer(missing_values=np.NaN, strategy='mean')
+
+
+imputer = SimpleImputer(missing_values=np.NaN, strategy='median')
+
+
+imputer = SimpleImputer(missing_values=np.NaN, strategy='most_frequent')
+
+
+imputer = SimpleImputer(missing_values=np.NaN, strategy='constant', fill_value=80)
+
+
+df
+
+
+imputer = SimpleImputer(missing_values = np.NaN, strategy = 'mean')
+df.Salary = imputer.fit_transform(df.Salary.values.reshape(-1,1))[:,0]
+df.Salary
+
+
+df
