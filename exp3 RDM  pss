@@ -1,0 +1,55 @@
+exp3 RDM
+
+import pandas as pd
+import numpy as np
+from scipy import stats
+
+
+RDM = pd.read_excel("exp3_RelianceDataMart.xlsx")
+
+
+RDM
+
+
+print(RDM.mean())
+
+
+print(RDM.describe())
+
+
+onesampleresult = stats.ttest_1samp(RDM, 24.446)
+
+
+print(onesampleresult)
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+
+pps = pd.read_excel("exp3_Pre_Post_Score.xlsx", sheet_name=2)
+
+
+pps
+
+
+pps = pps.iloc[:, 0:3]
+
+
+pps
+
+
+pps = pps.drop(pps.tail(3).index) #pps = pps.iloc[:20]
+
+
+pps
+
+
+two_sample_result = stats.ttest_rel(pps['Pre_Score'], pps['Post_Score'])
+print(two_sample_result)
