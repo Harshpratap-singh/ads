@@ -1,0 +1,113 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy import stats
+import warnings
+warnings.simplefilter(action='ignore',category=FutureWarning)
+
+
+
+df=pd.read_csv("/content/tips-expt4 - tips-expt4.csv")
+
+
+df.head()
+
+
+df.isnull().sum()
+
+
+df.describe()
+
+
+df.tip.describe()
+
+
+bill = df.total_bill
+print("Maximum Bill : ",np.max(bill))
+print("Minimum Bill : ",np.min(bill))
+print("Standard Deviation : ",np.std(bill))
+print("Median : ",np.median(bill))
+print("Mean : ",np.mean(bill))
+
+
+tip = df.tip
+print("Maximum Bill : ",np.max(tip))
+print("Minimum Bill : ",np.min(tip))
+print("Standard Deviation : ",np.std(tip))
+print("Median : ",np.median(tip))
+print("Mean : ",np.mean(tip))
+
+
+sns.countplot(x='sex',data=df)
+sns.despine()
+print(df.sex.value_counts()
+
+
+sns.countplot(x='sex',data=df,hue='smoker',palette='viridis')
+
+
+plt.figure(figsize=(8,6))
+plt.title('Tips Per Day Of Week')
+sns.countplot(x=df['day'],color='purple')
+
+
+sns.catplot(x='day',data=df,hue='sex',palette='ch:.25',kind='count')
+
+
+sns.distplot(df['tip'])
+
+
+g=sns.distplot(df.tip,kde=False)
+g.set_title('Tip Amount Histogram')
+
+
+plt.figure(figsize=(20,5))
+sns.boxplot(x=bill,color='b')
+
+
+plt.figure(figsize=(20,5))
+sns.boxplot(x=tip,color='g')
+
+
+bill_tip=pd.DataFrame(df,columns=['total_bill','tips','size'])
+print(bill_tip)
+print("IQR For Total Bill : ",stats.iqr(bill))
+print("IQR For Tip : ",stats.iqr(tip))
+
+
+sns.relplot(x='total_bill',y='tip',data=df,col='time',hue='smoker',size='size')
+
+
+plt.figure(figsize=(12,10))
+sns.scatterplot(data=df,x='total_bill',y="tip",hue="sex")
+
+
+sns.lmplot(x='total_bill',y='tip',data=df,col='time',hue='smoker')
+
+
+sns.catplot(x='day',y='tip',data=df,kind='swarm')
+
+
+sns.catplot(x='time',y='tip',data=df,height=6,kind='bar',palette='muted')
+
+
+sns.catplot(x='day',y='tip',data=df,kind='violin')
+
+
+sns.pairplot(df,hue='sex')
+
+
+from sklearn.preprocessing import LabelEncoder
+labelencoder_df = LabelEncoder()
+df['sex']=labelencoder_df.fit_transform(df['sex'])
+df['smoker']=labelencoder_df.fit_transform(df['smoker'])
+df['day']=labelencoder_df.fit_transform(df['day'])
+df['time']=labelencoder_df.fit_transform(df['time'])
+df.head()
+
+
+corr_matrix=df.corr()
+ax=sns.heatmap(data=corr_matrix,annot=True,vmax=1,vmin=-1,center=0)
+bottom,top=ax.get_ylim()
+ax.set_ylim(bottom + 0.5,top - 0.5)
